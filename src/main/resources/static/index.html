@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Academix | Student Management System</title>
+    <!-- Fonts & Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+    <!-- Sidebar Navigation -->
+    <aside class="sidebar">
+        <div class="logo-container">
+            <i class="fa-solid fa-graduation-cap logo-icon"></i>
+            <span class="logo-text">Academix</span>
+        </div>
+        
+        <ul class="menu-list">
+            <li class="menu-item active">
+                <a href="#dashboard">
+                    <i class="fa-solid fa-chart-pie"></i>
+                    <span>Dashboard</span>
+                </a>
+            </li>
+            <li class="menu-item">
+                <a href="#students">
+                    <i class="fa-solid fa-user-graduate"></i>
+                    <span>Students</span>
+                </a>
+            </li>
+            <li class="menu-item">
+                <a href="#courses">
+                    <i class="fa-solid fa-book-open"></i>
+                    <span>Courses</span>
+                </a>
+            </li>
+            <li class="menu-item">
+                <a href="#enrollments">
+                    <i class="fa-solid fa-clipboard-list"></i>
+                    <span>Enrollments</span>
+                </a>
+            </li>
+            <li class="menu-item">
+                <a href="#grades">
+                    <i class="fa-solid fa-award"></i>
+                    <span>Grades</span>
+                </a>
+            </li>
+            <li class="menu-item">
+                <a href="#attendance">
+                    <i class="fa-solid fa-calendar-check"></i>
+                    <span>Attendance</span>
+                </a>
+            </li>
+        </ul>
+
+        <div class="sidebar-footer">
+            <a href="/h2-console" target="_blank" class="db-console-btn">
+                <i class="fa-solid fa-database"></i>
+                <span>H2 Console</span>
+            </a>
+        </div>
+    </aside>
+
+    <!-- Main Content Area -->
+    <main class="main-content">
+        <!-- Top Navigation Bar -->
+        <header class="top-nav">
+            <div class="page-title">
+                <h1>Student Management System</h1>
+                <p>Welcome back, Administrator</p>
+            </div>
+            <div class="user-profile">
+                <span style="font-size: 0.9rem; font-weight: 500;">Admin User</span>
+                <div class="user-avatar">A</div>
+            </div>
+        </header>
+
+        <!-- DASHBOARD TAB -->
+        <section id="dashboard" class="tab-content active">
+            <!-- KPI Cards -->
+            <div class="kpi-container">
+                <div class="kpi-card">
+                    <div class="kpi-info">
+                        <h3>Total Students</h3>
+                        <div id="total-students-kpi" class="kpi-value">0</div>
+                    </div>
+                    <div class="kpi-icon students">
+                        <i class="fa-solid fa-user-graduate"></i>
+                    </div>
+                </div>
+                <div class="kpi-card">
+                    <div class="kpi-info">
+                        <h3>Active Courses</h3>
+                        <div id="total-courses-kpi" class="kpi-value">0</div>
+                    </div>
+                    <div class="kpi-icon courses">
+                        <i class="fa-solid fa-book-open"></i>
+                    </div>
+                </div>
+                <div class="kpi-card">
+                    <div class="kpi-info">
+                        <h3>Average GPA</h3>
+                        <div id="avg-gpa-kpi" class="kpi-value">0.0</div>
+                    </div>
+                    <div class="kpi-icon gpa">
+                        <i class="fa-solid fa-award"></i>
+                    </div>
+                </div>
+                <div class="kpi-card">
+                    <div class="kpi-info">
+                        <h3>Attendance Rate</h3>
+                        <div id="attendance-kpi" class="kpi-value">0.0%</div>
+                    </div>
+                    <div class="kpi-icon attendance">
+                        <i class="fa-solid fa-calendar-check"></i>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Welcome Panel / System Info -->
+            <div class="dashboard-grid">
+                <div class="panel-card">
+                    <h3>System Administration Panel</h3>
+                    <p style="color: var(--text-secondary); line-height: 1.6; margin-bottom: 1rem;">
+                        Academix is a modern relational database-driven Student Management System. It allows admins to manage student registrations, list courses, register enrollments, issue grades, and record attendance profiles.
+                    </p>
+                    <div style="background: rgba(255, 255, 255, 0.02); border: 1px solid var(--border-glass); padding: 1rem; border-radius: var(--border-radius); font-size: 0.85rem;">
+                        <span style="color: var(--accent-blue); font-weight: 600;"><i class="fa-solid fa-circle-info"></i> Relational DBMS Active:</span>
+                        <span style="margin-left: 0.5rem; color: var(--text-secondary);">H2 Relational Database (Persistent File Mode: <code>./data/smsdb</code>)</span>
+                    </div>
+                </div>
+                <div class="panel-card" style="display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; gap: 0.5rem;">
+                    <i class="fa-solid fa-database" style="font-size: 3rem; color: var(--accent-amber); margin-bottom: 0.5rem;"></i>
+                    <h4>Database Inspection</h4>
+                    <p style="font-size: 0.82rem; color: var(--text-secondary);">Access the underlying relational tables using SQL query console.</p>
+                    <a href="/h2-console" target="_blank" class="btn btn-secondary" style="margin-top: 0.5rem; font-size: 0.8rem; padding: 0.5rem 1rem;">
+                        Launch SQL Editor
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- STUDENTS TAB -->
+        <section id="students" class="tab-content">
+            <div class="action-bar">
+                <div class="search-wrapper">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                    <input type="text" id="student-search" class="search-input" placeholder="Search students...">
+                </div>
+                <button id="add-student-btn" class="btn btn-primary">
+                    <i class="fa-solid fa-plus"></i> Add Student
+                </button>
+            </div>
+
+            <div class="table-container">
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Student ID</th>
+                            <th>Name</th>
+                            <th>Email</th>
+                            <th>Phone</th>
+                            <th>Date of Birth</th>
+                            <th>Enroll Date</th>
+                            <th style="width: 100px;">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="students-table-body">
+                        <!-- Loaded dynamically -->
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- COURSES TAB -->
+        <section id="courses" class="tab-content">
+            <div class="action-bar">
+                <div class="search-wrapper">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                    <input type="text" id="course-search" class="search-input" placeholder="Search courses...">
+                </div>
+                <button id="add-course-btn" class="btn btn-primary">
+                    <i class="fa-solid fa-plus"></i> Add Course
+                </button>
+            </div>
+
+            <div class="table-container">
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Code</th>
+                            <th>Course Name</th>
+                            <th>Description</th>
+                            <th style="text-align: center; width: 100px;">Credits</th>
+                            <th style="width: 100px;">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="courses-table-body">
+                        <!-- Loaded dynamically -->
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- ENROLLMENTS TAB -->
+        <section id="enrollments" class="tab-content">
+            <div class="dashboard-grid">
+                <div class="table-container" style="margin-bottom: 0;">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Student ID</th>
+                                <th>Student Name</th>
+                                <th>Course</th>
+                                <th>Enroll Date</th>
+                                <th style="width: 80px;">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody id="enrollments-table-body">
+                            <!-- Loaded dynamically -->
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="panel-card">
+                    <h3>Enroll Student</h3>
+                    <form id="enroll-form" class="form-inline-container">
+                        <div class="form-group">
+                            <label for="enroll-student-select">Student</label>
+                            <select id="enroll-student-select" class="form-control" required>
+                                <option value="">Choose Student</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="enroll-course-select">Course</label>
+                            <select id="enroll-course-select" class="form-control" required>
+                                <option value="">Choose Course</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="enroll-date">Enrollment Date</label>
+                            <input type="date" id="enroll-date" class="form-control">
+                        </div>
+                        <button type="submit" class="btn btn-primary" style="width: 100%; justify-content: center;">
+                            Register Enrollment
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+        <!-- GRADES TAB -->
+        <section id="grades" class="tab-content">
+            <div class="dashboard-grid">
+                <div class="table-container" style="margin-bottom: 0;">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Student ID</th>
+                                <th>Name</th>
+                                <th>Course</th>
+                                <th>Grade</th>
+                                <th>Remarks</th>
+                                <th style="width: 80px;">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody id="grades-table-body">
+                            <!-- Loaded dynamically -->
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="panel-card">
+                    <h3>Record Grade</h3>
+                    <form id="grade-form" class="form-inline-container">
+                        <div class="form-group">
+                            <label for="grade-student-select">Student</label>
+                            <select id="grade-student-select" class="form-control" required>
+                                <option value="">Choose Student</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="grade-course-select">Course</label>
+                            <select id="grade-course-select" class="form-control" required>
+                                <option value="">Choose Course</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="grade-val">Grade</label>
+                            <select id="grade-val" class="form-control" required>
+                                <option value="">Select Grade</option>
+                                <option value="A+">A+</option>
+                                <option value="A">A</option>
+                                <option value="A-">A-</option>
+                                <option value="B+">B+</option>
+                                <option value="B">B</option>
+                                <option value="B-">B-</option>
+                                <option value="C+">C+</option>
+                                <option value="C">C</option>
+                                <option value="D">D</option>
+                                <option value="F">F</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="grade-remarks">Remarks (Optional)</label>
+                            <input type="text" id="grade-remarks" class="form-control" placeholder="e.g. Excellent work">
+                        </div>
+                        <button type="submit" class="btn btn-primary" style="width: 100%; justify-content: center;">
+                            Submit Grade
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+        <!-- ATTENDANCE TAB -->
+        <section id="attendance" class="tab-content">
+            <div class="dashboard-grid">
+                <div class="table-container" style="margin-bottom: 0;">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Student ID</th>
+                                <th>Name</th>
+                                <th>Course</th>
+                                <th>Date</th>
+                                <th>Status</th>
+                                <th style="width: 80px;">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody id="attendance-table-body">
+                            <!-- Loaded dynamically -->
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="panel-card">
+                    <h3>Submit Attendance</h3>
+                    <form id="attendance-form" class="form-inline-container">
+                        <div class="form-group">
+                            <label for="attendance-student-select">Student</label>
+                            <select id="attendance-student-select" class="form-control" required>
+                                <option value="">Choose Student</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="attendance-course-select">Course</label>
+                            <select id="attendance-course-select" class="form-control" required>
+                                <option value="">Choose Course</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="attendance-date">Date</label>
+                            <input type="date" id="attendance-date" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label for="attendance-status">Status</label>
+                            <select id="attendance-status" class="form-control" required>
+                                <option value="PRESENT">Present</option>
+                                <option value="ABSENT">Absent</option>
+                                <option value="LATE">Late</option>
+                            </select>
+                        </div>
+                        <button type="submit" class="btn btn-primary" style="width: 100%; justify-content: center;">
+                            Record Status
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Student Modals (Add / Edit) -->
+    <div id="student-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Add Student</h2>
+                <button id="close-student-modal" class="close-modal-btn"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <form id="student-form">
+                <input type="hidden" id="student-id-field">
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="student-first-name">First Name</label>
+                        <input type="text" id="student-first-name" class="form-control" required placeholder="John">
+                    </div>
+                    <div class="form-group">
+                        <label for="student-last-name">Last Name</label>
+                        <input type="text" id="student-last-name" class="form-control" required placeholder="Doe">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="student-email">Email Address</label>
+                    <input type="email" id="student-email" class="form-control" required placeholder="john.doe@example.com">
+                </div>
+
+                <div class="form-group">
+                    <label for="student-phone">Phone Number</label>
+                    <input type="tel" id="student-phone" class="form-control" placeholder="+1 (555) 019-2834">
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="student-dob">Date of Birth</label>
+                        <input type="date" id="student-dob" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label for="student-enroll-date">Enrollment Date</label>
+                        <input type="date" id="student-enroll-date" class="form-control">
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" id="close-student-modal-footer" onclick="document.getElementById('student-modal').classList.remove('active')">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Save Student</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Course Modals (Add / Edit) -->
+    <div id="course-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Add Course</h2>
+                <button id="close-course-modal" class="close-modal-btn"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <form id="course-form">
+                <input type="hidden" id="course-id-field">
+
+                <div class="form-group">
+                    <label for="course-code">Course Code</label>
+                    <input type="text" id="course-code" class="form-control" required placeholder="CS-101">
+                </div>
+
+                <div class="form-group">
+                    <label for="course-name">Course Name</label>
+                    <input type="text" id="course-name" class="form-control" required placeholder="Introduction to Computer Science">
+                </div>
+
+                <div class="form-group">
+                    <label for="course-desc">Description</label>
+                    <input type="text" id="course-desc" class="form-control" placeholder="Brief details about the course syllabus...">
+                </div>
+
+                <div class="form-group">
+                    <label for="course-credits">Credits</label>
+                    <input type="number" id="course-credits" class="form-control" required min="1" max="10" placeholder="3">
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" onclick="document.getElementById('course-modal').classList.remove('active')">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Save Course</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Toast Notifications Container -->
+    <div id="toast-container" class="toast-container"></div>
+
+    <!-- Custom JS -->
+    <script src="js/app.js"></script>
+</body>
+</html>
